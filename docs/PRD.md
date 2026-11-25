@@ -214,3 +214,68 @@ Probabilidade e impacto são estimativas iniciais para o grupo revisar.
 | Divisão desigual do trabalho no grupo | Média | Médio | Dividir por módulos (login e perfis, reservas, eventos, painel) e revisar o código uns dos outros |
 | A demonstração parecer simples | Baixa | Médio | Usar dois aparelhos ao vivo, mostrar os três perfis e rodar o teste de concorrência |
 | Cliente modificado grava blocos direto, contornando a regra de sobreposição | Baixa | Médio | Limitação aceita (ADR-003); evolução para Cloud Function se o tempo permitir |
+
+## 12. Progresso do projeto
+
+Atualizado em 2026-11-25. Esta seção é atualizada em todo push, junto com o ADR.
+
+Legenda: ✅ concluído · 🔄 em andamento · ⏳ não iniciado
+
+### Fases
+
+| Fase | Status | Observação |
+|---|---|---|
+| 0. Fundação | ✅ | Repositório no GitHub, `.gitignore`, projeto Android com Compose e minSdk 26. O app roda no emulador |
+| 1. Login e perfis | 🔄 | Firebase (BoM, Auth, Firestore) e Hilt adicionados ao Gradle e validados (o app abre no emulador). Telas de login ainda não existem |
+| 2. Protótipo crítico | ⏳ | Transação de blocos de 30 min (ADR-003) e teste de concorrência (CA01) |
+| 3. Regras de negócio | ⏳ | Classes puras para RN01 a RN13, com testes unitários |
+| 4. Reservas e eventos | ⏳ | Depende das fases 2 e 3 |
+| 5. Segurança | ⏳ | Security Rules e testes no emulador (CA08) |
+| 6. Painel e relatórios | ⏳ | RF20 e RF21 |
+| 7. Testes e demo | ⏳ | Dados de exemplo e demonstração em dois aparelhos |
+
+### Requisitos funcionais
+
+| ID | Requisito | Status |
+|---|---|---|
+| RF01 | Cadastro e login com e-mail e senha | 🔄 Dependências adicionadas |
+| RF02 | Redefinição de senha por e-mail | ⏳ |
+| RF03 | Perfil padrão aluno no cadastro | ⏳ |
+| RF04 | Administrador cadastra, edita e desativa espaços | ⏳ |
+| RF05 | Lista de espaços com filtro e busca | ⏳ |
+| RF06 | Administrador bloqueia espaço por período | ⏳ |
+| RF07 | Consulta de horários disponíveis | ⏳ |
+| RF08 | Criação de reserva | ⏳ |
+| RF09 | Recusa de sobreposição | ⏳ |
+| RF10 | Aplicação dos limites da seção 5 | ⏳ |
+| RF11 | Listar e cancelar as próprias reservas | ⏳ |
+| RF12 | Confirmação de presença | ⏳ |
+| RF13 | Criação de evento pendente | ⏳ |
+| RF14 | Aprovação ou rejeição de evento | ⏳ |
+| RF15 | Evento aprovado ocupa o espaço | ⏳ |
+| RF16 | Inscrição e lista de espera | ⏳ |
+| RF17 | Promoção automática da fila | ⏳ |
+| RF18 | Organizador gerencia o próprio evento | ⏳ |
+| RF19 | Estado do espaço (livre, reservado, em andamento, bloqueado) | ⏳ |
+| RF20 | Relatório do administrador | ⏳ |
+| RF21 | Promoção de usuário a organizador | ⏳ |
+| RF22 | Cancelamento pelo administrador | ⏳ |
+
+### Regras de negócio
+
+Todas as regras RN01 a RN13 estão ⏳. Serão implementadas na fase 3, em classes puras e com testes unitários.
+
+### Branches em andamento
+
+| Branch | Conteúdo | Situação |
+|---|---|---|
+| `main` | Base do projeto: documentação e app Android que roda | Estável |
+| `feat/kgp-2-4` | Migração para Kotlin 2.4.21 e KSP 2.3.12, com Firebase e Hilt | Validada: o app abre no emulador. Aguardando commit |
+| `docs/progresso-adr-prd` | Esta atualização de progresso e o fluxo de contribuição | Aguardando PR |
+
+### Próximos passos
+
+1. Commit da `feat/kgp-2-4` (migração validada) e, depois, a classe `Application`.
+2. Criar a classe `Application` com `@HiltAndroidApp`.
+3. Implementar o login com Firebase Auth (RF01, RF03).
+4. Protótipo da transação de blocos (fase 2).

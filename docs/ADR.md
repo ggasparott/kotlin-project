@@ -18,6 +18,7 @@ Premissas confirmadas:
 | ADR-004 | Perfis de acesso por campo `role`, verificado no domínio e nas Security Rules | Proposta |
 | ADR-005 | Ocupação calculada por horários e confirmação de presença com horário do servidor | Proposta |
 | ADR-006 | Escopo com dados compartilhados entre aparelhos | Aceita |
+| ADR-007 | Toolchain: AGP 9.4, Kotlin 2.4.21, KSP 2.3.12 e Hilt 2.59.2 | Aceita |
 
 ---
 
@@ -199,6 +200,45 @@ Regras de perfil:
 
 ---
 
+## ADR-007: Toolchain com AGP 9.4, Kotlin 2.4.21, KSP 2.3.12 e Hilt 2.59.2
+
+**Status:** Aceita (app compilado e executado no emulador)
+
+**Contexto.** O projeto foi criado com o AGP 9.4.1, que usa o Kotlin embutido. Esse modo exige que o KSP, usado pelo Hilt, esteja alinhado ao Kotlin. Com o Kotlin 2.2.10 e o KSP 2.2.10-2.0.2, o build falhou com o erro "Using kotlin.sourceSets DSL to add Kotlin sources is not allowed with built-in Kotlin", porque o KSP registra o código gerado pelo caminho antigo.
+
+**Decisão.**
+- Gradle 9.6.0, que é o mínimo exigido pelo AGP 9.4.
+- Kotlin 2.4.21 para o KGP e para o plugin do Compose, definido no catálogo de versões e forçado no `buildscript` da raiz.
+- KSP 2.3.12, par de versões usado na documentação oficial do KSP.
+- Hilt 2.59.2, primeira versão com suporte oficial ao AGP 9. Se houver incompatibilidade com o Kotlin 2.4, a alternativa é o Hilt 2.60.1.
+
+**Alternativas consideradas.**
+- Manter o KSP 2.2.10 com a flag `android.disallowKotlinSourceSets=false`. Foi a contingência, por ser uma supressão temporária.
+- Usar kapt. Não é compatível com o Kotlin embutido.
+
+**Consequências.**
+- Positivo: toolchain atualizado e alinhado à documentação oficial.
+- Negativo: o `buildscript` da raiz precisa ser mantido em sincronia com o catálogo de versões. Se as versões divergirem, o build quebra.
+- Negativo: a série 2.3 do KSP e o Kotlin 2.4 são recentes, então pode haver ajustes nas próximas atualizações.
+
+---
+
+## Progresso de implementação
+
+Atualizado em 2026-11-25. Esta seção é atualizada em todo push, junto com o PRD.
+
+| Decisão | Situação | O que falta |
+|---|---|---|
+| ADR-001 Firebase (Auth + Firestore) | 🔄 Dependências adicionadas | Inicializar o Firebase no app, criar as coleções e as Security Rules |
+| ADR-002 Kotlin, Compose e MVVM com Hilt | 🔄 Projeto base criado, Hilt em validação | Classe `Application` com `@HiltAndroidApp`, camadas de ViewModel e Repository |
+| ADR-003 Transação de blocos de 30 min | ⏳ | Protótipo e teste de concorrência (fase 2) |
+| ADR-004 Perfis por `role` | ⏳ | `PermissionPolicy`, testes de permissão e Security Rules |
+| ADR-005 Ocupação e presença | ⏳ | Classe pura de estado do espaço e `serverTimestamp` na presença |
+| ADR-006 Dados compartilhados | ✅ Decisão aceita | Nada, até as telas de demonstração |
+| ADR-007 Toolchain | ✅ Validado: o app abre no emulador | Nada |
+
+---
+
 ## Consequências gerais, pendências e histórico
 
 **Riscos técnicos concentrados** em:
@@ -221,3 +261,4 @@ Regras de perfil:
 |---|---|
 | 2026-11-11 | Versão inicial, com as seis decisões como Proposta, usando Room e escopo de aparelho único |
 | 2026-11-25 | Backend trocado de Room para Firebase (Auth + Firestore). ADR-001 e ADR-006 aceitos. ADR-002 aceita (Kotlin e Compose confirmados). ADR-003, ADR-004 e ADR-005 reescritos para o Firestore |
+| 2026-11-25 | Adicionado ADR-007 (toolchain) e a seção de progresso de implementação. Documentação passou a ser atualizada a cada push |
