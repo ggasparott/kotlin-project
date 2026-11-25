@@ -1,0 +1,39 @@
+# Android / Gradle
+.gradle/
+build/
+app/build/
+local.properties
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+
+# Assinatura do app (nunca versionar)
+keystore.properties
+*.jks
+*.keystore
+
+# Firebase: configuração e chaves (nunca versionar, o repositório é público)
+google-services.json
+*firebase-adminsdk*.json
+serviceAccount*.json
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+database-debug.log
+
+# Variáveis de ambiente e segredos
+.env
+.env.*
+*.pem
+*.p12
+secrets.*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
