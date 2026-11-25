@@ -18,7 +18,7 @@ Premissas confirmadas:
 | ADR-004 | Perfis de acesso por campo `role`, verificado no domínio e nas Security Rules | Proposta |
 | ADR-005 | Ocupação calculada por horários e confirmação de presença com horário do servidor | Proposta |
 | ADR-006 | Escopo com dados compartilhados entre aparelhos | Aceita |
-| ADR-007 | Toolchain: AGP 9.4, Kotlin 2.4.21, KSP 2.3.12 e Hilt 2.59.2 | Em validação |
+| ADR-007 | Toolchain: AGP 9.4, Kotlin 2.4.21, KSP 2.3.12 e Hilt 2.59.2 | Aceita |
 
 ---
 
@@ -202,7 +202,7 @@ Regras de perfil:
 
 ## ADR-007: Toolchain com AGP 9.4, Kotlin 2.4.21, KSP 2.3.12 e Hilt 2.59.2
 
-**Status:** Em validação (testado no Android Studio antes de virar Aceita)
+**Status:** Aceita (app compilado e executado no emulador)
 
 **Contexto.** O projeto foi criado com o AGP 9.4.1, que usa o Kotlin embutido. Esse modo exige que o KSP, usado pelo Hilt, esteja alinhado ao Kotlin. Com o Kotlin 2.2.10 e o KSP 2.2.10-2.0.2, o build falhou com o erro "Using kotlin.sourceSets DSL to add Kotlin sources is not allowed with built-in Kotlin", porque o KSP registra o código gerado pelo caminho antigo.
 
@@ -235,7 +235,7 @@ Atualizado em 2026-11-25. Esta seção é atualizada em todo push, junto com o P
 | ADR-004 Perfis por `role` | ⏳ | `PermissionPolicy`, testes de permissão e Security Rules |
 | ADR-005 Ocupação e presença | ⏳ | Classe pura de estado do espaço e `serverTimestamp` na presença |
 | ADR-006 Dados compartilhados | ✅ Decisão aceita | Nada, até as telas de demonstração |
-| ADR-007 Toolchain | 🔄 Em validação na `feat/kgp-2-4` | Confirmar o build no Android Studio e aceitar a decisão |
+| ADR-007 Toolchain | ✅ Validado: o app abre no emulador | Nada |
 
 ---
 

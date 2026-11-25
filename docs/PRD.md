@@ -226,7 +226,7 @@ Legenda: ✅ concluído · 🔄 em andamento · ⏳ não iniciado
 | Fase | Status | Observação |
 |---|---|---|
 | 0. Fundação | ✅ | Repositório no GitHub, `.gitignore`, projeto Android com Compose e minSdk 26. O app roda no emulador |
-| 1. Login e perfis | 🔄 | Firebase (BoM, Auth, Firestore) e Hilt adicionados ao Gradle, em validação na branch `feat/kgp-2-4`. Telas de login ainda não existem |
+| 1. Login e perfis | 🔄 | Firebase (BoM, Auth, Firestore) e Hilt adicionados ao Gradle e validados (o app abre no emulador). Telas de login ainda não existem |
 | 2. Protótipo crítico | ⏳ | Transação de blocos de 30 min (ADR-003) e teste de concorrência (CA01) |
 | 3. Regras de negócio | ⏳ | Classes puras para RN01 a RN13, com testes unitários |
 | 4. Reservas e eventos | ⏳ | Depende das fases 2 e 3 |
@@ -270,12 +270,12 @@ Todas as regras RN01 a RN13 estão ⏳. Serão implementadas na fase 3, em class
 | Branch | Conteúdo | Situação |
 |---|---|---|
 | `main` | Base do projeto: documentação e app Android que roda | Estável |
-| `feat/kgp-2-4` | Migração para Kotlin 2.4.21 e KSP 2.3.12, com Firebase e Hilt | Em validação. Não commitada |
+| `feat/kgp-2-4` | Migração para Kotlin 2.4.21 e KSP 2.3.12, com Firebase e Hilt | Validada: o app abre no emulador. Aguardando commit |
 | `docs/progresso-adr-prd` | Esta atualização de progresso e o fluxo de contribuição | Aguardando PR |
 
 ### Próximos passos
 
-1. Validar o build da `feat/kgp-2-4` no Android Studio e fazer o commit.
+1. Commit da `feat/kgp-2-4` (migração validada) e, depois, a classe `Application`.
 2. Criar a classe `Application` com `@HiltAndroidApp`.
 3. Implementar o login com Firebase Auth (RF01, RF03).
 4. Protótipo da transação de blocos (fase 2).
